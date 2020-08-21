@@ -130,7 +130,7 @@ class SessionsController < ApplicationController
     ldap_config[:password] = ENV['LDAP_PASSWORD']
     ldap_config[:auth_method] = ENV['LDAP_AUTH']
     ldap_config[:encryption] = if ENV['LDAP_METHOD'] == 'ssl'
-                                    'simple_tls'
+                                    { :method => :simple_tls, :tls_options => { :verify_mode => OpenSSL::SSL::VERIFY_NONE  } }
                                 elsif ENV['LDAP_METHOD'] == 'tls'
                                     'start_tls'
                                 end
